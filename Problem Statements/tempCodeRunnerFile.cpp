@@ -1,2 +1,4 @@
-int n;
-  // cin >> n;
+for (auto val : arr)
+  // {
+  //   cout << val << " ";
+  // }
