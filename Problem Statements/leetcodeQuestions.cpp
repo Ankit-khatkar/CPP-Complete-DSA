@@ -40,8 +40,109 @@ int majorityElem(vector<int> &nums)
   }
 }
 
+// Que:-  Given an array, we have to find the largest element in the array.
+
+// Input: arr[] = {2, 5, 1, 3, 0}
+// Output: 5
+
+int largestElem(vector<int> &arr)
+{
+  int i = 0;
+  int j = arr.size() - 1;
+  int max = INT16_MIN;
+  while (i < j)
+  {
+    if (arr[i] > arr[j])
+    {
+      max = arr[i];
+      j--;
+    }
+    else
+    {
+      max = arr[j];
+      i++;
+    }
+  }
+
+  // Alternative Method..........
+
+  // for (int i = 0; i < arr.size(); i++)
+  // {
+  //   if (arr[i] > max)
+  //   {
+  //     max = arr[i];
+  //   }
+  // }
+
+  return max;
+}
+
+// Given an array, find the second smallest and second largest element in the array. Print ‘-1’ in the event that either of them doesn’t exist.
+
+// Input: [1, 2, 4, 7, 7, 5]
+// Output: Second Smallest : 2
+// Second Largest : 5
+
+void getElements(vector<int> &arr)
+{
+  if (arr.size() < 2)
+  {
+    cout << "Array only have " << arr.size() << " element." << endl;
+    return;
+  }
+  int n = arr.size();
+  for (int i = n - 1; i > 0; i--)
+  {
+    for (int j = 0; j < i; j++)
+    {
+      if (arr[j] > arr[j + 1])
+      {
+        swap(arr[j], arr[j + 1]);
+      }
+    }
+  }
+  cout << "Second Smallest Element: " << arr[1] << endl;
+  cout << "Second Largest Element: " << arr[arr.size() - 2] << endl;
+}
+// Time Complexity O(n^2)
+
+void getElements(int arr[], int n)
+{
+  // Edge case: when the array has less than 2 elements
+  if (n == 0 || n == 1)
+    cout << -1 << " " << -1 << endl; // If only one element, print -1 for both second smallest and second largest
+
+  // Initialize variables to track the smallest, second smallest, largest, and second largest elements
+  int small = INT_MAX, second_small = INT_MAX;
+  int large = INT_MIN, second_large = INT_MIN;
+  int i;
+
+  // Find the smallest and largest elements in the array
+  for (i = 0; i < n; i++)
+  {
+    small = min(small, arr[i]); // Update the smallest element
+    large = max(large, arr[i]); // Update the largest element
+  }
+
+  // Find the second smallest and second largest elements
+  for (i = 0; i < n; i++)
+  {
+    // If the current element is smaller than second_small and not equal to the smallest, update second_small
+    if (arr[i] < second_small && arr[i] != small)
+      second_small = arr[i];
+
+    // If the current element is larger than second_large and not equal to the largest, update second_large
+    if (arr[i] > second_large && arr[i] != large)
+      second_large = arr[i];
+  }
+
+  // Output the second smallest and second largest elements
+  cout << "Second smallest is " << second_small << endl;
+  cout << "Second largest is " << second_large << endl;
+}
+// Time Complexity O(n)
+
 int main()
 {
-  vector<int> arr = {2, 3, 2, 0, 3, 5, 4, 2, 2, 2};
-  cout << majorityElem(arr);
+  vector<int> arr = {2};
 }
