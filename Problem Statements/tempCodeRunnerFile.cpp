@@ -1,4 +1,1 @@
-for (auto val : arr)
-  // {
-  //   cout << val << " ";
-  // }
+true

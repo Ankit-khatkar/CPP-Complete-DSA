@@ -142,7 +142,67 @@ void getElements(int arr[], int n)
 }
 // Time Complexity O(n)
 
+void rotateArray(vector<int> &arr, int t)
+{
+  int x = t % (arr.size());
+  int n = arr.size();
+  for (int i = 1; i <= x; i++)
+  {
+    int temp = arr[0];
+    for (int j = 0; j < n - 1; j++)
+    {
+      arr[j] = arr[j + 1];
+    }
+    arr[n - 1] = temp;
+  }
+  for (auto val : arr)
+  {
+    cout << val << " ";
+  }
+}
+
+// QUE:-Given an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false.
+
+// There may be duplicates in the original array.
+
+// Note: An array A rotated by x positions results in an array B of the same length such that B[i] == A[(i+x) % A.length] for every valid index i.
+// Input: nums = [3,4,5,1,2]
+// Output: true
+// Explanation: [1,2,3,4,5] is the original sorted array.
+// You can rotate the array by x = 2 positions to begin on the element of value 3: [3,4,5,1,2].
+bool check(vector<int> &arr)
+{
+  vector<int> new_arr(arr);
+  int n = arr.size();
+
+  sort(arr.begin(), arr.end());
+  bool flag = false;
+
+  for (int i = 0; i < n; i++)
+  {
+
+    for (int j = 0; j < n; j++)
+    {
+      if (new_arr[j] != arr[(j + i) % n])
+      {
+        break;
+        ;
+      }
+      else if (new_arr[j] == arr[(j + i) % n] && j == (n - 1))
+      {
+        flag = true;
+        break;
+      }
+    }
+    if (flag == true)
+    {
+      break;
+    }
+  }
+  return flag;
+}
 int main()
 {
-  vector<int> arr = {2};
+  vector<int> arr = {4, 1, 2, 3, 1};
+  return 0;
 }
