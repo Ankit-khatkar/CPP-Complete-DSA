@@ -142,7 +142,7 @@ void getElements(int arr[], int n)
 }
 // Time Complexity O(n)
 
-void rotateArray(vector<int> &arr, int t)
+void rotateArrayLeft(vector<int> &arr, int t)
 {
   int x = t % (arr.size());
   int n = arr.size();
@@ -161,6 +161,25 @@ void rotateArray(vector<int> &arr, int t)
   }
 }
 
+void rotateArrayRight(vector<int> &arr, int t)
+{
+
+  int n = arr.size();
+  int x = t % n;
+  if (n == 1)
+  {
+    return;
+  }
+  for (int i = 1; i <= x; i++)
+  {
+    int temp = arr[n - 1];
+    for (int j = n - 1; j > 0; j--)
+    {
+      arr[j] = arr[j - 1];
+    }
+    arr[0] = temp;
+  }
+};
 // QUE:-Given an array nums, return true if the array was originally sorted in non-decreasing order, then rotated some number of positions (including zero). Otherwise, return false.
 
 // There may be duplicates in the original array.
@@ -201,8 +220,59 @@ bool check(vector<int> &arr)
   }
   return flag;
 }
+
+// QUE:- Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+
+// Consider the number of unique elements in nums to be k​​​​​​​​​​​​​​. After removing duplicates, return the number of unique elements k.
+
+// The first k elements of nums should contain the unique numbers in sorted order. The remaining elements beyond index k - 1 can be ignored.
+int removeDuplicate(vector<int> &arr)
+{
+  if (arr.size() == 0)
+  {
+    return 0;
+  }
+  int k = arr.size();
+  for (int i = 0; i < arr.size() - 1; i++)
+  {
+
+    if (arr[i] == arr[i + 1])
+    {
+      arr[i] = -101;
+      k--;
+    }
+  }
+  vector<int> new_arr(k);
+  int count = 0;
+  for (int i = 0; i < arr.size(); i++)
+  {
+    if (arr[i] != -101)
+    {
+      new_arr[count] = arr[i];
+      arr[count] = new_arr[count];
+      count++;
+    }
+  }
+
+  return k;
+}
+// Optimal Approach
+int removeDuplicates(vector<int> &nums)
+{
+  int n = nums.size();
+  int i = 0;
+  for (int j = 1; j < n; j++)
+  {
+    if (nums[i] != nums[j])
+    {
+      nums[i + 1] = nums[j];
+      i++;
+    }
+  }
+  return i + 1;
+}
 int main()
 {
-  vector<int> arr = {4, 1, 2, 3, 1};
-  return 0;
+
+   return 0;
 }
