@@ -271,8 +271,52 @@ int removeDuplicates(vector<int> &nums)
   }
   return i + 1;
 }
+
+// QUE:-  Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+// Note that you must do this in-place without making a copy of the array.
+
+// Brute force approach. Time Complexity = O(n2)
+void moveZeros(vector<int> &arr)
+{
+  int j = arr.size() - 1;
+  while (j > 0)
+  {
+    for (int i = 0; i < j; i++)
+    {
+      if (arr[i] == 0)
+      {
+        swap(arr[i], arr[i + 1]);
+      }
+    }
+    j--;
+  }
+}
+
+// Optimal Solution. Time Complexity=O(n)
+void moveZeros01(vector<int> &arr)
+{
+  int insernums = 0;
+  for (int i = 0; i < arr.size(); i++)
+  {
+    if (arr[i] != 0)
+    {
+      arr[insernums++] = arr[i];
+    }
+  }
+  while (insernums < arr.size())
+  {
+    arr[insernums++] = 0;
+  }
+}
 int main()
 {
+  vector<int> arr = {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10};
+  moveZeros01(arr);
+  for (auto val : arr)
+  {
+    cout << val << " ";
+  }
 
-   return 0;
+  return 0;
 }
