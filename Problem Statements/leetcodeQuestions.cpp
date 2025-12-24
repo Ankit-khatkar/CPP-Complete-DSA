@@ -309,14 +309,90 @@ void moveZeros01(vector<int> &arr)
     arr[insernums++] = 0;
   }
 }
+
+// QUE:- Print the fobonaci series according to the length of user's input.
+void fibonaciseries(int a, int b, int k)
+{
+
+  if (k < 1)
+  {
+    return;
+  }
+  int c = a + b;
+  a = b;
+  cout << c << " ";
+  fibonaciseries(a, c, k - 1);
+}
+// QUE:-  Given an array, and an element num the task is to find if num is present in the given array or not. If present print the index of the element or print -1.
+
+void linearSearchElem(vector<int> &arr, int n, int k)
+{
+  if (k < 0)
+  {
+    cout << "Didn't find element";
+    return;
+  }
+  else if (arr[k] == n)
+  {
+    cout << "Element is at " << k << "th index";
+    return;
+  }
+  else
+  {
+    linearSearchElem(arr, n, k - 1);
+  }
+}
+
+// QUE:- Given two sorted arrays, arr1, and arr2 of size n and m. Find the union of two sorted arrays.
+
+// The union of two arrays can be defined as the common and distinct elements in the two arrays.
+
+// NOTE: Elements in the union should be in ascending order.
+
+void findUnion(vector<int> &arr, vector<int> &arr1)
+{
+  map<int, int> mpp;
+  vector<int> unionArr;
+  for (int i = 0; i < arr.size(); i++)
+  {
+    mpp[arr[i]]++;
+  }
+  for (int i = 0; i < arr1.size(); i++)
+  {
+    mpp[arr1[i]]++;
+  }
+  for (auto &it : mpp)
+  {
+    unionArr.push_back(it.first);
+  }
+  for (int i = 0; i < unionArr.size(); i++)
+  {
+    cout << unionArr[i] << " ";
+  }
+}
+
+// QUE:-  Given an array that contains only 1 and 0 return the count of maximum consecutive ones in the array.
+int maximumOnes(vector<int> &nums)
+{
+  int current = 0;
+  int maxcount = 0;
+  for (int i = 0; i < nums.size(); i++)
+  {
+    if (nums[i] == 1)
+    {
+      current++;
+      maxcount = max(maxcount, current);
+    }
+    else
+    {
+      current = 0;
+    }
+  }
+  return maxcount;
+}
 int main()
 {
-  vector<int> arr = {1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10};
-  moveZeros01(arr);
-  for (auto val : arr)
-  {
-    cout << val << " ";
-  }
-
+  vector<int> arr = {0, 0};
+  cout << maximumOnes(arr);
   return 0;
 }
