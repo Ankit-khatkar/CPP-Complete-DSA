@@ -390,9 +390,33 @@ int maximumOnes(vector<int> &nums)
   }
   return maxcount;
 }
+
+// QUE:- Given a non-empty array of integers arr, every element appears twice except for one. Find that single one.
+// Input Format: arr[] = {2,2,1}
+// Result: 1
+// Explanation: In this array, only the element 1 appear once and so it is the answer.
+int singleNumber(vector<int> &nums)
+{
+  map<int, int> mpp;
+  for (int i = 0; i < nums.size(); i++)
+  {
+    mpp[nums[i]]++;
+  }
+  int ans;
+  for (auto &it : mpp)
+  {
+    if (it.second == 0)
+    {
+      ans = it.first;
+      break;
+    }
+  }
+  return ans;
+}
+
 int main()
 {
-  vector<int> arr = {0, 0};
-  cout << maximumOnes(arr);
+  vector<int> arr = {4, 1, 2, 1, 2};
+  singleNumber(arr);
   return 0;
 }
