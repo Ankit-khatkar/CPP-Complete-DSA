@@ -1,6 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// QUE :- You are given a string s. The score of a string is defined as the sum of the absolute difference between the ASCII values of adjacent characters.
+int stringscore(string s)
+{
+  int score = 0;
+  for (int i = 0; i < s.size() - 1; i++)
+  {
+    score += abs(s[i] - s[i + 1]);
+  }
+  return score;
+}
 // find the mejority element form the arrya.
 // Note:- array will only have positive numbers.
 
@@ -435,9 +445,69 @@ int subarray(vector<int> &arr, int k)
   }
   return subarrays;
 }
+
+// Optimal Solution....
+
+int subarraySum(vector<int> &nums, int k)
+{
+  int n = nums.size();
+  int count = 0;
+
+  vector<int> prefixSum(n, 0);
+  prefixSum[0] = nums[0];
+  for (int i = 1; i < n; i++)
+  {
+    prefixSum[i] = prefixSum[i - 1] + nums[i];
+  }
+
+  unordered_map<int, int> mpp;
+  for (int j = 0; j < n; j++)
+  {
+    if (prefixSum[j] == k)
+    {
+      count++;
+    }
+    int val = prefixSum[j] - k;
+    if (mpp.find(val) != mpp.end())
+    {
+      count += mpp[val];
+    }
+    if (mpp.find(prefixSum[j]) == mpp.end())
+    {
+      mpp[prefixSum[j]] = 0;
+    }
+    mpp[prefixSum[j]]++;
+  }
+  return count;
+}
+
+int longestSubArrayLength(vector<int> &nums, int target)
+{
+  int n = nums.size();
+  int max_len = 0;
+  vector<int> prefixSum(n, 0);
+  prefixSum[0] = nums[0];
+  for (int i = 1; i < n; i++)
+  {
+    prefixSum[i] = prefixSum[i - 1] + nums[i];
+  }
+  unordered_map<int, int> mpp;
+  for (int j = 0; j < n; j++)
+  {
+    if (prefixSum[j] == target)
+    {
+      max_len = j + 1;
+    }
+    int val = prefixSum[j] - target;
+    if (mpp.find(val) != mpp.end())
+    {
+      max_len = max(max_len, (j) + 1);
+    }
+  }
+}
 int main()
 {
-  vector<int> arr = {0, 0, 0};
-  cout << subarray(arr, 0);
+  vector<int> arr = {1, 2, 3};
+  cout << stringscore("zaz");
   return 0;
 }
