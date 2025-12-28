@@ -1,6 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// QUE:- You are given a string s consisting of lowercase English letters.
+
+// Return an integer denoting the maximum number of
+// you can split s into such that each substring starts with a distinct character (i.e., no two substrings start with the same character).
+int maxDistinct(string s)
+{
+  unordered_map<int, int> mpp;
+  string count = "";
+  for (int i = 0; i < s.size(); i++)
+  {
+    mpp[s[i]]++;
+  }
+  for (const auto &pair : mpp)
+  {
+    count += pair.first;
+  }
+  return count.size();
+}
+
 // QUE :- You are given a string s. The score of a string is defined as the sum of the absolute difference between the ASCII values of adjacent characters.
 int stringscore(string s)
 {
@@ -507,7 +526,7 @@ int longestSubArrayLength(vector<int> &nums, int target)
 }
 int main()
 {
-  vector<int> arr = {1, 2, 3};
-  cout << stringscore("zaz");
+  string str = "aaaa";
+  cout << maxDistinct(str);
   return 0;
 }
