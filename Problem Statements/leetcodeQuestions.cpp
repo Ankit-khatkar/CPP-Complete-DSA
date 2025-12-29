@@ -500,33 +500,64 @@ int subarraySum(vector<int> &nums, int k)
   return count;
 }
 
-int longestSubArrayLength(vector<int> &nums, int target)
+// QUE:- find the manixum subarray sum with window size k.
+int maximumSumSubarray(vector<int> &arr, int k)
 {
-  int n = nums.size();
-  int max_len = 0;
-  vector<int> prefixSum(n, 0);
-  prefixSum[0] = nums[0];
-  for (int i = 1; i < n; i++)
+  int n = arr.size();
+
+  if (n < k || k == 0)
   {
-    prefixSum[i] = prefixSum[i - 1] + nums[i];
+    return -1;
   }
+  int i = 0, j = 0;
+  int sum = 0;
+  int maxSum = INT_MIN;
+  while (j < n)
+  {
+    sum = sum + arr[j];
+    if (j - i + 1 < k)
+    {
+      j++;
+    }
+    else if (j - i + 1 == k)
+    {
+      maxSum = max(sum, maxSum);
+      sum = sum - arr[i];
+      i++;
+      j++;
+    }
+  }
+  return maxSum;
+}
+
+long long distinctmaxSumSubarray(vector<int> &nums, int k)
+{
   unordered_map<int, int> mpp;
-  for (int j = 0; j < n; j++)
+  int n = nums.size();
+  long long sum = 0, maxSum = LLONG_MIN;
+  int i = 0, j = 0;
+
+  while (j < n)
   {
-    if (prefixSum[j] == target)
+    mpp[nums[j]]++;
+    if (mpp.size() < k)
     {
-      max_len = j + 1;
+      j++;
     }
-    int val = prefixSum[j] - target;
-    if (mpp.find(val) != mpp.end())
+    else if (mpp.size() == k)
     {
-      max_len = max(max_len, (j) + 1);
+      maxSum = max(sum, maxSum);
+      sum -= nums[i];
+      i++;
+      j++;
     }
   }
+  return maxSum;
 }
 int main()
 {
-  string str = "aaaa";
-  cout << maxDistinct(str);
+  vector<int> arr = {1, 2, 1, 3, 4};
+  int k = 3;
+  cout << distinctmaxSumSubarray(arr, k);
   return 0;
 }
