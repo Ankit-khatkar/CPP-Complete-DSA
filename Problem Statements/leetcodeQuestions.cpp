@@ -530,34 +530,71 @@ int maximumSumSubarray(vector<int> &arr, int k)
   return maxSum;
 }
 
-long long distinctmaxSumSubarray(vector<int> &nums, int k)
-{
-  unordered_map<int, int> mpp;
-  int n = nums.size();
-  long long sum = 0, maxSum = LLONG_MIN;
-  int i = 0, j = 0;
+// QUE:- Given an array arr[]  and a positive integer k, find the first negative integer for each and every window(contiguous subarray) of size k.
 
+// Note: If a window does not contain a negative integer, then return 0 for that window.
+vector<int> firstNegativeElem(vector<int> &nums, int k)
+{
+  int n = nums.size();
+  int i = 0, j = 0;
+  vector<int> ans;
+  list<int> l;
   while (j < n)
   {
-    mpp[nums[j]]++;
-    if (mpp.size() < k)
+    if (nums[j] < 0)
+    {
+      l.push_back(nums[j]);
+    }
+    if (j - i + 1 < k)
     {
       j++;
     }
-    else if (mpp.size() == k)
+    else if (j - i + 1 == k)
     {
-      maxSum = max(sum, maxSum);
-      sum -= nums[i];
+      if (l.size() == 0)
+      {
+        ans.push_back(0);
+      }
+      else
+      {
+        ans.push_back(l.front());
+        if (nums[i] == l.front())
+        {
+          l.pop_front();
+        }
+      }
       i++;
       j++;
     }
   }
-  return maxSum;
+  return ans;
+}
+
+// QUE:- Write the code to print the pascal's triangle;
+vector<vector<int>> pascalTriangle(int k)
+{
+  vector<vector<int>> ans(k);
+  for (int i = 0; i < k; i++)
+  {
+    ans[i].resize(i + 1);
+    for (int j = 0; j <= i; j++)
+    {
+      if (j == 0 || j == i)
+      {
+        ans[i][j] = 1;
+      }
+      else
+      {
+        ans[i][j] = ans[i - 1][j - 1] + ans[i - 1][j];
+      }
+    }
+  }
+  return ans;
 }
 int main()
 {
-  vector<int> arr = {1, 2, 1, 3, 4};
+  vector<int> arr = {12, -1, -7, 8, -15, 30, 14, 28};
   int k = 3;
-  cout << distinctmaxSumSubarray(arr, k);
+
   return 0;
 }
