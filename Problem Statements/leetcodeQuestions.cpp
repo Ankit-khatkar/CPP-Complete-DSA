@@ -591,10 +591,57 @@ vector<vector<int>> pascalTriangle(int k)
   }
   return ans;
 }
+
+// QUE:- Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+// You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+// You can return the answer in any order.
+vector<int> twoSum(vector<int> &nums, int target)
+{
+  unordered_map<int, int> mpp;
+
+  for (int i = 0; i < nums.size(); i++)
+  {
+    int num = nums[i];
+    int moreNeeded = target - num;
+
+    // Check if the complement exists in the map ALREADY
+    if (mpp.find(moreNeeded) != mpp.end())
+    {
+      // If found, return the index of the complement and current index
+      return {mpp[moreNeeded], i};
+    }
+
+    // If not found, add the current number and index to the map
+    mpp[num] = i;
+  }
+
+  return {}; // Return empty if no solution found
+}
+
+// QUE:- find the mejority element of given array.
+int mejorityElem(vector<int> &nums)
+{
+  int ans = INT_MIN;
+  int freq = 0;
+  unordered_map<int, int> mpp;
+  for (int i = 0; i < nums.size(); i++)
+  {
+    mpp[nums[i]];
+
+    if (freq < mpp.at(nums[i]))
+    {
+      freq++;
+      ans = nums[i];
+    }
+  }
+  return ans;
+}
+
 int main()
 {
-  vector<int> arr = {12, -1, -7, 8, -15, 30, 14, 28};
-  int k = 3;
-
+  vector<int> arr = {2, 2, 1, 1, 1, 2, 2};
+  cout << majorityElem(arr);
   return 0;
 }

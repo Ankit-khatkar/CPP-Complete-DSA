@@ -126,4 +126,5 @@ void pascal_triangle2nd(vector<vector<int>> &v, int n)
 }
 int main()
 {
+  pascal_triangle1st(5);
 }
