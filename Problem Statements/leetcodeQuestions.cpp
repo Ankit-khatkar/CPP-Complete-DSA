@@ -639,9 +639,34 @@ int mejorityElem(vector<int> &nums)
   return ans;
 }
 
+// QUE:- You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+// You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+// Return the maximum profit
+
+// I have solved it with O(N) time complexity. Check leetcode profile.
+int maxProfit(vector<int> &prices)
+{
+  int maxprofit = 0;
+  for (int i = 0; i < prices.size() - 1; i++)
+  {
+    int profit = 0;
+    for (int j = i + 1; j < prices.size(); j++)
+    {
+      profit = prices[j] - prices[i];
+      maxprofit = max(maxprofit, profit);
+      if (prices[j] < prices[i])
+      {
+        break;
+      }
+    }
+  }
+  return maxprofit;
+}
 int main()
 {
-  vector<int> arr = {2, 2, 1, 1, 1, 2, 2};
-  cout << majorityElem(arr);
+  vector<int> arr = {1, 2};
+  cout << maxProfit(arr);
   return 0;
 }
