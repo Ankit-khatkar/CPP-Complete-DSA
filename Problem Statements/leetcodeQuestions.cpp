@@ -664,9 +664,56 @@ int maxProfit(vector<int> &prices)
   }
   return maxprofit;
 }
+
+vector<int> rearrangeArray(vector<int> &nums)
+{
+  // int l = 0, r = nums.size() - 1;
+  int pI = 0, nI = 1;
+  vector<int> ans(nums.size());
+  for (int i = 0; i < nums.size(); i++)
+  {
+    if (nums[i] > 0)
+    {
+      ans[pI] = nums[i];
+      pI += 2;
+    }
+    if (nums[i] < 0)
+    {
+      ans[nI] = nums[i];
+      nI += 2;
+    }
+  }
+
+  return ans;
+}
+
+void nextPermutation(vector<int> &nums)
+{
+  int pivotIdx = -1;
+  int n = nums.size();
+  for (int i = n - 2; i >= 0; i--)
+  {
+    if (nums[i] < nums[i + 1])
+    {
+      pivotIdx = i;
+      break;
+    }
+  }
+  for (int i = n - 1; i > pivotIdx; i--)
+  {
+    if (nums[i] > nums[pivotIdx])
+    {
+      swap(nums[pivotIdx], nums[i]);
+      break;
+    }
+  }
+  reverse(nums.begin() + pivotIdx + 1, nums.end());
+}
+
 int main()
 {
-  vector<int> arr = {1, 2};
-  cout << maxProfit(arr);
+  vector<int> arr = {1, 0, 1, 2};
+  // cout << longestConsicative(arr);
+
   return 0;
 }
