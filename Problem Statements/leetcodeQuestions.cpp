@@ -687,33 +687,59 @@ vector<int> rearrangeArray(vector<int> &nums)
   return ans;
 }
 
-void nextPermutation(vector<int> &nums)
+// QUE:- Return all elements of matrix into spiral manner.
+void spiralMatrix(vector<vector<int>> &matrix)
 {
-  int pivotIdx = -1;
-  int n = nums.size();
-  for (int i = n - 2; i >= 0; i--)
-  {
-    if (nums[i] < nums[i + 1])
-    {
-      pivotIdx = i;
-      break;
-    }
-  }
-  for (int i = n - 1; i > pivotIdx; i--)
-  {
-    if (nums[i] > nums[pivotIdx])
-    {
-      swap(nums[pivotIdx], nums[i]);
-      break;
-    }
-  }
-  reverse(nums.begin() + pivotIdx + 1, nums.end());
-}
+  int top = 0;
+  int bottom = matrix.size() - 1;
+  int left = 0;
+  int right = matrix[0].size() - 1;
 
+  while (left <= right && top <= bottom)
+  {
+
+    for (int i = left; i <= right; i++)
+    {
+      cout << matrix[top][i] << " ";
+    }
+    top++;
+    for (int j = top; j <= bottom; j++)
+    {
+      cout << matrix[j][right] << " ";
+    }
+    right--;
+    if (left <= right)
+    {
+      for (int j = right; j >= left; j--)
+      {
+        cout << matrix[bottom][j] << " ";
+      }
+      bottom--;
+    }
+    if (top <= bottom)
+    {
+      for (int i = bottom; i >= top; i--)
+      {
+        cout << matrix[i][left] << " ";
+      }
+      left++;
+    }
+  }
+}
 int main()
 {
-  vector<int> arr = {1, 0, 1, 2};
-  // cout << longestConsicative(arr);
+  vector<vector<int>> inputmatrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+
+  spiralMatrix(inputmatrix);
+
+  // for (int i = 0; i < inputmatrix.size(); i++)
+  // {
+  //   for (int j = 0; j < inputmatrix[i].size(); j++)
+  //   {
+  //     cout << inputmatrix[i][j] << " ";
+  //   }
+  //   cout << endl;
+  // }
 
   return 0;
 }
