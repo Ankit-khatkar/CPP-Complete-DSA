@@ -726,20 +726,68 @@ void spiralMatrix(vector<vector<int>> &matrix)
     }
   }
 }
+
+// QUE:- return the array of all the integers that that leaders form right end.
+vector<int> leaders(vector<int> &nums)
+{
+  vector<int> ans;
+  int n = nums.size();
+  ans.push_back(nums[n - 1]);
+  int maxNum = nums[n - 1];
+  for (int i = n - 2; i >= 0; i--)
+  {
+    if (nums[i] > maxNum)
+    {
+      ans.push_back(nums[i]);
+      maxNum = nums[i];
+    }
+  }
+  reverse(ans.begin(), ans.end());
+  return ans;
+}
+
+// QUE:- Convert Roman to integer.
+int romanToInt(string s)
+{
+  unordered_map<char, int> mpp;
+  mpp.insert({'I', 1});
+  mpp.insert({'V', 5});
+  mpp.insert({'X', 10});
+  mpp.insert({'L', 50});
+  mpp.insert({'C', 100});
+  mpp.insert({'D', 500});
+  mpp.insert({'M', 1000});
+  int n = s.size();
+  int ans = 0;
+  for (int i = n - 1; i > 0; i--)
+  {
+    if (mpp.find(s[i])->second > mpp.find(s[i - 1])->second)
+    {
+      ans += mpp.find(s[i])->second - mpp.find(s[i - 1])->second;
+      i--;
+    }
+    else
+    {
+      ans += mpp.find(s[i])->second;
+    }
+    if (i == 1)
+    {
+      ans += mpp.find(s[0])->second;
+    }
+  }
+  return ans;
+}
+
 int main()
 {
-  vector<vector<int>> inputmatrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+  vector<int> myinput = {1, 2, 5, 3, 1, 2};
 
-  spiralMatrix(inputmatrix);
+  vector<int> ans = leaders(myinput);
 
-  // for (int i = 0; i < inputmatrix.size(); i++)
-  // {
-  //   for (int j = 0; j < inputmatrix[i].size(); j++)
-  //   {
-  //     cout << inputmatrix[i][j] << " ";
-  //   }
-  //   cout << endl;
-  // }
+  for (auto it : ans)
+  {
+    cout << it << " ";
+  }
 
   return 0;
 }
