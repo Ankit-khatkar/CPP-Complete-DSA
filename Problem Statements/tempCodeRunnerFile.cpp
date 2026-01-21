@@ -1,8 +1,7 @@
-  // for (int i = 0; i < inputmatrix.size(); i++)
+for (const auto &pair : mpp)
   // {
-  //   for (int j = 0; j < inputmatrix[i].size(); j++)
+  //   if (pair.second > reqfreq)
   //   {
-  //     cout << inputmatrix[i][j] << " ";
+  //     ans.push_back(pair.first);
   //   }
-  //   cout << endl;
   // }

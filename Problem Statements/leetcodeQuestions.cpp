@@ -778,16 +778,30 @@ int romanToInt(string s)
   return ans;
 }
 
+// QUE:- find the mejority element that occur in array more that n/3 times of the size of the array.
+vector<int> mejorityElem2(vector<int> &nums)
+{
+  unordered_map<int, int> mpp;
+  for (int num : nums)
+  {
+    mpp[num]++;
+  }
+  int reqfreq = nums.size() / 3;
+  vector<int> ans;
+
+  for (const auto &pair : mpp)
+  {
+    if (pair.second > reqfreq)
+    {
+      ans.push_back(pair.first);
+    }
+  }
+  return ans;
+}
+
 int main()
 {
-  vector<int> myinput = {1, 2, 5, 3, 1, 2};
-
-  vector<int> ans = leaders(myinput);
-
-  for (auto it : ans)
-  {
-    cout << it << " ";
-  }
+  vector<int> myinput = {3, 2, 50};
 
   return 0;
 }
