@@ -799,9 +799,68 @@ vector<int> mejorityElem2(vector<int> &nums)
   return ans;
 }
 
+// QUE:- Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+
+//     0 <= a, b, c, d < n
+//     a, b, c, and d are distinct.
+//     nums[a] + nums[b] + nums[c] + nums[d] == target
+
+// You may return the answer in any order.
+
+vector<vector<int>> fourSum(vector<int> &nums, int target)
+{
+  sort(nums.begin(), nums.end());
+  vector<vector<int>> result;
+  int n = nums.size();
+  for (int i = 0; i < n - 3; i++)
+  {
+    if (i > 0 && nums[i] == nums[i - 1])
+      continue;
+    for (int j = i + 1; j < n - 2; j++)
+    {
+      if (j > j + 1 && nums[j] == nums[j - 1])
+        continue;
+      int x = j + 1;
+      int y = n - 1;
+      while (x < y)
+      {
+        int val = nums[i] + nums[j] + nums[x] + nums[y];
+        if (val == target)
+        {
+          result.push_back({nums[i], nums[j], nums[x], nums[y]});
+          x++;
+          y--;
+          while (x < y && nums[x] == nums[x - 1])
+            x++;
+          while (x < y && nums[y] == nums[y + 1])
+            y--;
+        }
+        else if (val < target)
+        {
+          x++;
+        }
+        else if (val > target)
+        {
+          y--;
+        }
+      }
+    }
+  }
+  return result;
+}
+
 int main()
 {
-  vector<int> myinput = {3, 2, 50};
+  vector<vector<int>> myinput = {{1, 3}, {2, 6}, {7, 10}, {8, 15}};
+  dummy(myinput);
+
+  // for (int i = 0; i < myinput.size(); i++)
+  // {
+  //   for (auto &it : myinput[i])
+  //   {
+  //     cout << it << " ";
+  //   }
+  // }
 
   return 0;
 }
