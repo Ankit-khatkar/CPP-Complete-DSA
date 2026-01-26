@@ -849,11 +849,34 @@ vector<vector<int>> fourSum(vector<int> &nums, int target)
   return result;
 }
 
+// QUE:- Given a string s, find the length of the longest without duplicate characters.
+int largestSubDistChars(string s)
+{
+  int n = s.size();
+  int j = 0, i = 0, currlength = 0, maxlength = 0;
+  unordered_map<int, int> mpp;
+  while (j < n)
+  {
+    mpp[s[j]]++;
+    while (mpp[s[j]] > 1)
+    {
+      mpp[s[i]]--;
+      if (mpp[s[i]] == 0)
+      {
+        mpp.erase(s[i]);
+      }
+      i++;
+    }
+    maxlength = max(maxlength, j - i + 1);
+    j++;
+  }
+  return maxlength;
+}
 int main()
 {
   vector<vector<int>> myinput = {{1, 3}, {2, 6}, {7, 10}, {8, 15}};
-  dummy(myinput);
-
+  string s = "dvdf";
+  cout << largestSubDistChars(s);
   // for (int i = 0; i < myinput.size(); i++)
   // {
   //   for (auto &it : myinput[i])
